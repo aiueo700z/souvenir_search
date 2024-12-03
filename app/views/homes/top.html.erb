@@ -1,2 +1,16 @@
 <h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<p><h1>投稿一覧</h1>
+<% @posts.each do |post| %>
+  <p>タイトル</p>
+  <span><%= post.title %></span>
+  <p>画像</p>
+  <% if post.image.attached? %>
+    <%= image_tag post.image, size: "200x200" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "200x200" %>
+  <% end %>
+  <p>投稿詳細</p>
+  <span><%= post.caption %></span>
+  <p>♥<%= post.favorites.count %> いいね</p>
+  <%= link_to "詳細", post_path(post)%></p>
+<% end %>

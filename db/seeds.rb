@@ -23,7 +23,10 @@ categories.each do |name|
   Category.create!(name: name)
 end
 
-
+souvenir = %w(ザビエル かぼす)
+souvenir.each do |name|
+  Souvenir.create!(name: name)
+end
 
 (1..5).each do |i|
   User.create!(
