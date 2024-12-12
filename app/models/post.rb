@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   #疑似的なカラムを追加してカラムにない情報をモデルに渡す
   before_validation :insert_souvenir_id
   #ヴァリデーションの前にメソッドを実行
-  after_find :insert_souvenir_name
+  after_touch :insert_souvenir_name
   #データベースから読み込んだ後メソッドを実行
 
   belongs_to :user
@@ -14,6 +14,7 @@ class Post < ApplicationRecord
   validates :souvenir_id, presence: true
   has_one_attached :image
   has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

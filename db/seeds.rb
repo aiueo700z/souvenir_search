@@ -18,7 +18,7 @@ prefectures.each do |name|
   Prefecture.create!(name: name)
 end
 
-categories = %w(食品 アクセサリー 衣類)
+categories = %w(食品 アクセサリー 衣類 )
 categories.each do |name|
   Category.create!(name: name)
 end

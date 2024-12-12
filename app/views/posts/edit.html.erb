@@ -1,0 +1,22 @@
+<h1>編集ページ</h1>
+<%= form_with model: @post do |f| %>
+  <h4>画像</h4>
+  <%= f.file_field :image, accept: "image/*" %>
+  <h4>都道府県名</h4>
+  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
+  <h4>カテゴリ</h4>
+  <%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
+  <h4>お土産名</h4>
+  <%#= f.collection_select :souvenir_id, Souvenir.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
+  <%= f.text_field :souvenir_name, list: 'souvenir_list' %>
+  <datalist id="souvenir_list">
+    <% Souvenir.all.each do |souvenir| %>
+      <option value="<%= souvenir.name %>"></option>
+    <% end %>
+  </datalist>
+  <h4>説明</h4>
+  <%= f.text_area :caption %>
+  <%= f.submit 'Update Post'%>
+<% end %>
+  </div>
+<%= link_to "Show", post_path(@post.id) %>| <%=link_to "Back", posts_path %>

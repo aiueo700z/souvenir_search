@@ -1,1 +1,27 @@
-<p>show</p>
+<% if user_signed_in? %>
+  <p>お土産名</P>
+  <%= @post.souvenir.name %>
+  <p>画像</p>
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image, size: "200x200" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "200x200" %>
+  <% end %>
+  <p>投稿内容</p>
+  <p><%= @post.caption %></p>
+  <h2>コメント一覧</h2>
+<% @comments.each do |comment| %>
+  <div>
+    <a href="/users/<%= @post.user.id %>"></a>
+      <%= comment.comment %><%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" } if current_user == comment.user %>
+    <hr>
+  </div>
+<% end %>
+  <%= form_with model: [@post, @comment] do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
+    <%= f.text_area :comment,  placeholder: "コメントを入力" %>
+    <%= f.submit "送信" %>
+  <% end %>
+<% else %>
+  <p>Please sign in</p>
+<% end %>
