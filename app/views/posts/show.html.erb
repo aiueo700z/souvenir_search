@@ -3,9 +3,9 @@
   <%= @post.souvenir.name %>
   <p>画像</p>
   <% if @post.image.attached? %>
-    <%= image_tag @post.image, size: "200x200" %>
+    <%= image_tag @post.image.variant(resize_to_fit: [200, 200]).processed %>
   <% else %>
-    <%= image_tag 'no_image', size: "200x200" %>
+    <%= image_tag 'no_image' %>
   <% end %>
   <p>投稿内容</p>
   <p><%= @post.caption %></p>

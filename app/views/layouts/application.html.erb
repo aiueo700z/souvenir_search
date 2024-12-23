@@ -1,44 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+ <head>
     <title>SouvenirSearch</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/0cc218563a.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-      <li>
-        <%= link_to "マイページ", user_path(current_user.id) %>
-      </li>
-      <li>
-        <%= link_to "トップ", root_path %>
-      </li>
-      <li>
-        <%= form_with url: search_path, method: :get, local: true do |f| %>
-          <%= f.search_field :keyword, placeholder:"検索するお土産名を入力してください", value: params[:keyword] %>
-          <%= f.submit :search %>
-        <% end %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-      
-    <% end %>
-  </header>
-    <%= render 'layouts/flash_messages' %>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <%= render 'layouts/global_navigation' %>
+    </header>
+    <main class="container">
+      <%= render 'layouts/flash_messages' %>
+      <%= yield %>
+    </main>
   </body>
 </html>

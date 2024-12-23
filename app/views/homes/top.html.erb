@@ -1,23 +1,21 @@
-<h1>Homes#top</h1>
-<p><h1>投稿一覧</h1>
-<% @posts.each do |post| %>
-  <p>お土産名</p>
-  <span><%= post.souvenir_name %></span>
-  <p>画像</p>
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "200x200" %>
-  <% end %>
-  <%#<p>投稿詳細</p>
-  <span><%= post.caption %></span>
-  <p>♥<%= post.favorites.count %> いいね</p>
-  <%= link_to "詳細", post_path(post)%></p>
-   <% if post.user == current_user %>
-      <td><%= link_to "編集", edit_post_path(post) %></td>
-      <td><%= link_to "削除", post_path(post), method: :delete %></td>
-    <% else %>
-      <td></td>
-      <td></td>
+<h1>投稿一覧</h1>
+
+<div class="row">
+  <div class="col-md-2">
+    <div>
+      <%= link_to "すべて", root_path(), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' unless params[:prefecture_id].present? }" %>
+    </div>
+    <% @prefectures.each do |prececture| %>
+      <div>
+        <%= link_to prececture.name, root_path(prefecture_id: prececture.id), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' if params[:prefecture_id].to_i == prececture.id }" %>
+      </div>
     <% end %>
-<% end %>
+  </div>
+  <div class="col-md-10">
+    <% if @posts.any? %>
+      <%= render "posts/posts", posts: @posts %>
+    <% else %>
+      <p class="h3 mt-5 text-center">該当するレコードはありません。</p>
+    <% end %>
+  </div>
+</div>

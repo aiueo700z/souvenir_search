@@ -11,7 +11,8 @@ class Post < ApplicationRecord
   belongs_to :souvenir
   belongs_to :prefecture
 
-  validates :souvenir_id, presence: true
+  validates :caption, presence: true
+
   has_one_attached :image
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
