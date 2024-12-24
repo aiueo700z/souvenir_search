@@ -3,7 +3,7 @@ class FavoritesController < ApplicationController
     post = Post.find(params[:post_id])
     favorite = current_user.favorites.new(post_id: post.id)
     favorite.save
-    redirect_to post_path(post)
+    redirect_to root_path(post)
   end
 
   def destroy

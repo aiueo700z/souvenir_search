@@ -18,8 +18,11 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    favorites.exists?(user_id: user&.id)
+    #favorited_by?メソッドでユーザーidがfavoritesテーブル内に存在するかどうかを判別しています。（いいねを既に押しているか、押していないか）
   end
+
+
 
   private
   
