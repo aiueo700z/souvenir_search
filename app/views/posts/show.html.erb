@@ -1,27 +1,67 @@
-<% if user_signed_in? %>
-  <p>お土産名</P>
-  <%= @post.souvenir.name %>
-  <p>画像</p>
-  <% if @post.image.attached? %>
-    <%= image_tag @post.image.variant(resize_to_fit: [200, 200]).processed %>
-  <% else %>
-    <%= image_tag 'no_image' %>
-  <% end %>
-  <p>投稿内容</p>
-  <p><%= @post.caption %></p>
-  <h2>コメント一覧</h2>
-<% @comments.each do |comment| %>
-  <div>
-    <a href="/users/<%= @post.user.id %>"></a>
-      <%= comment.comment %><%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" } if current_user == comment.user %>
-    <hr>
+<div class="row mt-5">
+  <div class="col-md-6">
+    <% if user_signed_in? %>
+      <div class="mb-3">
+        <p><strong>お土産名</strong></P>
+        <%= @post.souvenir.name %>
+      </div>
+
+      <div class="mb-3">
+        <p><strong>画像</strong></p>
+          <% if @post.image.attached? %>
+            <%= image_tag @post.image.variant(resize_to_fit: [200, 200]).processed %>
+          <% else %>
+            <%= image_tag 'no_image' %>
+          <% end %>
+      </div>
+    
+      <div class="mb-3">
+        <p><strong>投稿内容</strong></p>
+        <p><%= @post.caption %></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-3">
+        <p><strong>コメント一覧</strong></p>
+          <div>
+            <% if @comments.any? %>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th width="60%">コメント</th>
+                    <th width="25%">投稿者</th>
+                    <th width="15%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @comments.each do |comment| %>
+                    <tr>
+                      <td><%= simple_format comment.comment %></td>
+                      <td><%= link_to comment.user.name, user_path(comment.user.id) %></td>
+                      <td>
+                        <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" } if current_user == comment.user %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <p>コメントはまだありません。</p>
+            <% end %>
+          </div>
+      </div>
+
+      <hr>
+      <div class="my-3">
+        <%= form_with model: [@post, @comment] do |f| %>
+          <%= render 'layouts/error_messages', model: f.object %>
+          <%= f.text_area :comment, rows: 5, placeholder: "コメントを入力", class: "form-control" %>
+          <%= f.submit "送信", class: "btn btn-primary btn-block my-3" %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>Please sign in</p>
+    <% end %>
   </div>
-<% end %>
-  <%= form_with model: [@post, @comment] do |f| %>
-    <%= render 'layouts/error_messages', model: f.object %>
-    <%= f.text_area :comment,  placeholder: "コメントを入力" %>
-    <%= f.submit "送信" %>
-  <% end %>
-<% else %>
-  <p>Please sign in</p>
-<% end %>
+</div>
+

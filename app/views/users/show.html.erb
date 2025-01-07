@@ -1,20 +1,17 @@
-<h1>マイページ</h1>
-<%= link_to '投稿する', new_post_path %>
-
-<h1>投稿一覧</h1>
-<% @posts.each do |post| %>
-  <p>お土産名</p>
-  <span><%= post.souvenir_name %></span>
-  <p>画像</p>
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "200x200" %>
-  <% end %>
-  <p>投稿詳細</p>
-  <span><%= post.caption %></span>
-  <p>♥<%= @post.favorites.count %> いいね</p>
-  <%= link_to "詳細", post_path(post)%>
-  <%= link_to "編集", edit_post_path(post)%>
-  <%= link_to "削除", post_path(post), method: :delete%>
-<% end %>
+<div class="row">
+  <div class="col-md-3">
+    <% if @user.id == current_user.id %>
+      <p>マイページ<p>
+      <%= link_to '投稿する', new_post_path %>
+    <% else %>
+    <h1>
+    <div class="text-success">
+      <%= @user.name %>のページ
+    </div>
+    </h1>
+    <% end %>
+  </div>
+  <div class="col-md-9">
+    <%= render 'posts/posts', posts: @posts %>
+  </div>
+</div>

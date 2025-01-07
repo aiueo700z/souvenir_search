@@ -2,14 +2,30 @@
 
 <div class="row">
   <div class="col-md-2">
-    <div>
-      <%= link_to "すべて", root_path(), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' unless params[:prefecture_id].present? }" %>
-    </div>
-    <% @prefectures.each do |prececture| %>
+    <div class="d-none d-md-block">
       <div>
-        <%= link_to prececture.name, root_path(prefecture_id: prececture.id), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' if params[:prefecture_id].to_i == prececture.id }" %>
+        <%= link_to "すべて", root_path(), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' unless params[:prefecture_id].present? }" %>
       </div>
-    <% end %>
+      <% @prefectures.each do |prececture| %>
+        <div>
+          <%= link_to prececture.name, root_path(prefecture_id: prececture.id), class: "btn btn-outline-secondary btn-block mb-1 #{ 'active' if params[:prefecture_id].to_i == prececture.id }" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-block d-md-none">
+      <%= form_with url: root_path, method: :get, class: "my-3" do |f| %>
+        <div class="row">
+          <div class="col-8">
+            <%= f.collection_select :prefecture_id, @prefectures, :id, :name,
+              { include_blank: "--都道府県で絞り込み--", selected: params[:prefecture_id], },
+              { class: "form-control" } %>
+          </div>
+          <div class="col-4">
+            <%= f.submit "検索する", class: "btn btn-secondary btn-block" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="col-md-10">
     <% if @posts.any? %>
@@ -18,4 +34,8 @@
       <p class="h3 mt-5 text-center">該当するレコードはありません。</p>
     <% end %>
   </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @posts %>
 </div>

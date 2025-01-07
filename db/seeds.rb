@@ -18,7 +18,7 @@ prefectures = prefecture_names.map do |name|
   Prefecture.create!(name: name)
 end
 
-category_names = %w(食品 アクセサリー 衣類)
+category_names = %w(食品 アクセサリー 衣類 雑貨品)
 categories = category_names.map do |name|
   Category.create!(name: name)
 end
