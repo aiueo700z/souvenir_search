@@ -43,3 +43,5 @@ end
                 souvenir_name: souvenir_names.sample,
                 prefecture: prefectures.sample)
 end
+
+Admin.create!(email: 'admin@test.com', password: 'password')

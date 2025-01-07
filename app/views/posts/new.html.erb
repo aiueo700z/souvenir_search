@@ -3,41 +3,6 @@
 
     <h1 class="d-flex justify-content-center mb-4">画像投稿フォーム</h1>
 
-    <%= form_with model: @post do |f| %>
-      <div class="mb-3">
-        <h4>画像</h4>
-        <%= f.file_field :image, accept: "image/*" %>
-      </div>
-
-      <div class="mb-3">
-        <h4>都道府県名</h4>
-        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
-      </div>
-
-      <div class="mb-3">
-        <h4>カテゴリ</h4>
-        <%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
-      </div>
-
-      <div class="mb-3">
-        <h4>お土産名</h4>
-        <%#= f.collection_select :souvenir_id, Souvenir.all, :id, :name, { include_blank: "--select--" }, { class: "form-control" } %>
-        <%= f.text_field :souvenir_name, list: 'souvenir_list', class: "form-control" %>
-        <datalist id="souvenir_list">
-          <% Souvenir.all.each do |souvenir| %>
-            <option value="<%= souvenir.name %>"></option>
-          <% end %>
-        </datalist>
-      </div>
-
-      <div class="mb-3">
-        <h4>説明</h4>
-        <%= f.text_area :caption, rows: 5, class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.submit '投稿', class: "btn btn-primary btn-block" %>
-      </div>
-    <% end %>
+    <%= render 'posts/form', post: @post %>
   </div>
 </div>

@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Admin - Meshiterro</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-</head>
-<body>
-  <% if admin_signed_in? %>
-    <div class="text-right">
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-    </div>
-  <% end %>
-  <%= render 'layouts/flash_messages' %>
-  <%= yield %>
-</body>
+ <head>
+    <title>Admin | SouvenirSearch</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="https://kit.fontawesome.com/0cc218563a.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <%= render 'layouts/admin_global_navigation' %>
+    </header>
+    <main class="container">
+      <%= render 'layouts/flash_messages' %>
+      <%= yield %>
+    </main>
+  </body>
 </html>

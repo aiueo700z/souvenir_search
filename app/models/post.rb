@@ -14,6 +14,8 @@ class Post < ApplicationRecord
   validates :caption, presence: true
 
   has_one_attached :image
+  validates :image, content_type: ['image/png', 'image/jpeg', 'image/jpg']
+
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
 
