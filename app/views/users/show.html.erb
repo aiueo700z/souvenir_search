@@ -1,12 +1,18 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <% if @user.id == current_user.id %>
-      <p>マイページ<p>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="p-3 mb-2 bg-primary text-white text-center">マイページ</div>
+          </div>
+        </div>
+      </div>
       <%= link_to '投稿する', new_post_path %>
     <% else %>
     <h1>
     <div class="text-success">
-      <%= @user.name %>
+      <%= @user.name %>のページ
     </div>
     </h1>
     <% end %>
