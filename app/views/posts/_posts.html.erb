@@ -24,7 +24,12 @@
                   <span>❤︎</span>
                 <% end %>
               <% end %>
-              <%= post.favorites.count %> いいね
+              <p><%= post.favorites.count %> いいね
+                <br>
+                <%= link_to post_path(post) do %>
+                  <i class="fas fa-comment-dots"></i><%= post.comments.count %> コメント
+                <% end %>
+              </p>
             </h5>
             <div class="card-text">
               <div class="mt-3">

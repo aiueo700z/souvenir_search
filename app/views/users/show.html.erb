@@ -1,23 +1,25 @@
-<div class="row">
-  <div class="col-md-4">
-    <% if @user.id == current_user.id %>
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="p-3 mb-2 bg-primary text-white text-center">マイページ</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <% if @user.id == current_user.id %>
+          <div class="p-4 mb-3 bg-secondary text-white text-center">
+            <h2>マイページ</h2>
           </div>
-        </div>
+      <div class="col" >
+        <%= link_to new_post_path, class: "btn btn-primary btn-block" do%>
+           <i class="fas fa-pencil-alt"></i> 投稿する
+        <% end %>
       </div>
-      <%= link_to '投稿する', new_post_path %>
-    <% else %>
-    <h1>
-    <div class="text-success">
-      <%= @user.name %>のページ
+      <% else %>
+      <h1>
+      <div class="text-success">
+        <%= @user.name %>のページ
+      </div>
+      </h1>
+      <% end %>
     </div>
-    </h1>
-    <% end %>
+    <div class="col-md-9 mt-3">
+      <%= render 'posts/posts', posts: @posts %>
+    </div>
   </div>
-  <div class="col-md-9">
-    <%= render 'posts/posts', posts: @posts %>
-  </div>
-</div>
+</div> 
