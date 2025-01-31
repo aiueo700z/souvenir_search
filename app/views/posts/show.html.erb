@@ -1,6 +1,5 @@
 <div class="row mt-5">
   <div class="col-md-6">
-    <% if user_signed_in? %>
       <div class="mb-3">
         <p><strong>お土産名</strong></P>
         <%= @post.souvenir.name %>
@@ -50,18 +49,16 @@
             <% end %>
           </div>
       </div>
-
-      <hr>
-      <div class="my-3">
-        <%= form_with model: [@post, @comment] do |f| %>
-          <%= render 'layouts/error_messages', model: f.object %>
-          <%= f.text_area :comment, rows: 5, placeholder: "コメントを入力", class: "form-control" %>
-          <%= f.submit "送信", class: "btn btn-primary btn-block my-3" %>
-        <% end %>
-      </div>
-    <% else %>
-      <p>Please sign in</p>
-    <% end %>
+      <%# if user_signed_in? %>
+        <hr>
+        <div class="my-3">
+          <%= form_with model: [@post, @comment] do |f| %>
+            <%= render 'layouts/error_messages', model: f.object %>
+            <%= f.text_area :comment, rows: 5, placeholder: "コメントを入力", class: "form-control" %>
+            <%= f.submit "送信", class: "btn btn-primary btn-block my-3" %>
+          <% end %>
+        </div>
+      <%# end %>
   </div>
 </div>
 

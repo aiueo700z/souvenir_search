@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+
   def new
     @post = Post.new
   end
@@ -33,15 +36,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
-    @post.touch
-    unless @post.user.id == current_user.id
-      redirect_to posts_path
-    end
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
     flash[:notice] = "You have updated post successfully."
     redirect_to post_path(@post.id)
@@ -53,8 +50,7 @@ class PostsController < ApplicationController
 
 
   def destroy
-    post = Post.find(params[:id])  
-    post.destroy
+    @post.destroy
     redirect_to user_path(current_user.id) 
   end
   
@@ -62,5 +58,10 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:souvenir_name, :image, :prefecture_id, :category_id, :caption, :comment)
+  end
+
+  def correct_user
+    @post = Post.find_by_id(params[:id])
+    redirect_to root_path if @post&.user != current_user
   end
 end
