@@ -10,7 +10,7 @@
           <% if @post.image.attached? %>
             <%= image_tag @post.image.variant(resize_to_fit: [200, 200]).processed %>
           <% else %>
-            <%= image_tag 'no_image' %>
+            <%= image_tag 'no_image.jpg' %>
           <% end %>
       </div>
     
